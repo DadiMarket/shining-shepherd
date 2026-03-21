@@ -11,7 +11,7 @@ export default defineConfig({
 				src: './src/assets/DadiMarkerT.webp',
 			},
 			customCss: ['./src/styles/custom.css'],
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
+			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/DadiMarket' }],
 			sidebar: [
 				{
 					label: 'Dadi Initial Rewards',
