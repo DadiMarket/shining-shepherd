@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+:root {
+	/* Dadi Market Brand Colors */
+	--brand-teal: #9BBCC4;
+	--brand-gold: #EAB66C;
+	--brand-white: #FDFDFD;
+	--brand-dark: #1E292B;
+
+	/* Starlight Custom Props */
+	--sl-color-accent: var(--brand-teal);
+	--sl-color-accent-low: #3a5b61;
+	--sl-color-accent-high: #d8e5e7;
+
+	--sl-font: 'Inter', system-ui, sans-serif;
+	--sl-font-title: 'Playfair Display', serif;
+
+	/* Light Mode Bases */
+	--sl-color-bg: var(--brand-white);
+	--sl-color-bg-nav: var(--brand-white);
+	--sl-color-bg-sidebar: var(--brand-white);
+}
+
+:root[data-theme='dark'] {
+	--sl-color-accent: var(--brand-teal);
+	--sl-color-accent-low: #1e3a3f;
+	--sl-color-accent-high: #d8e5e7;
+	
+	/* Soft Dark Background */
+	--sl-color-bg: var(--brand-dark);
+	--sl-color-bg-nav: var(--brand-dark);
+	--sl-color-bg-sidebar: var(--brand-dark);
+}
+
+/* Typography Overrides */
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--sl-font-title) !important;
+	font-weight: 700 !important;
+	color: var(--brand-gold) !important;
+}
+
+.sl-markdown-content h1 {
+	color: var(--brand-gold);
+}
+
+/* Card Styling to match the brand manual images */
+.card {
+	border-radius: 1.5rem !important;
+	border: 2px solid rgba(255, 255, 255, 0.1) !important;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+	transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+	transform: translateY(-5px);
+}
+
+/* Alternating colors for cards or just general accent */
+.card:nth-child(odd) {
+	background-color: var(--brand-teal) !important;
+}
+
+.card:nth-child(even) {
+	background-color: var(--brand-gold) !important;
+}
+
+.card:nth-child(odd) .title,
+.card:nth-child(odd) .description,
+.card:nth-child(odd) .icon {
+	color: white !important;
+}
+
+.card:nth-child(even) .title,
+.card:nth-child(even) .description,
+.card:nth-child(even) .icon {
+	color: white !important;
+}
+
+.card .title {
+	font-family: var(--sl-font-title) !important;
+	font-size: 1.5rem !important;
+	font-weight: 700 !important;
+}
+
+/* Customizing the logo/title in nav */
+.site-title {
+	font-family: var(--sl-font-title);
+	font-weight: 900;
+	color: var(--brand-gold) !important;
+	text-decoration: none !important;
+}
+
+/* Sidebar and general link accent */
+a {
+	color: var(--brand-teal);
+	text-decoration-color: var(--brand-teal);
+}
+
+a:hover {
+	color: var(--brand-gold);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: var(--sl-color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--brand-teal);
+	border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--brand-gold);
+}
