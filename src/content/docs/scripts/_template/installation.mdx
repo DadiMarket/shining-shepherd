@@ -1,0 +1,46 @@
+---
+title: Installation and SQL
+description: How to install scripts on your FiveM server.
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+# ❓ Installation
+
+Welcome to the installation guide for your script.
+
+<Aside type="caution">
+Specify framework requirements and remember to clear server cache after installation.
+</Aside>
+
+## Dependencies
+- **Dependency 1**: [Link](https://example.com)
+- **Dependency 2**: [Link](https://example.com)
+
+## How to Install the Script
+
+<Steps>
+1.  **Download** the script from your FiveM keymaster.
+2.  **Open** the compressed file and extract the contents.
+3.  **Place** the folder in your `[resources]` directory.
+4.  **Rename** it to `script_name` (if specific naming is required).
+5.  **Edit** your `server.cfg` to ensure the script is loaded.
+</Steps>
+
+---
+
+# 🗃️ SQL Installation
+
+<Steps>
+1.  **Locate** the `[SQL]` folder in the package.
+2.  **Open** your MySQL manager (HeidiSQL, phpMyAdmin).
+3.  **Execute** the SQL script:
+    ```sql
+    -- SQL CODE HERE
+    ```
+5.  **Verify** that the tables/columns were created successfully.
+</Steps>
+
+<Aside type="note">
+Explanation of the SQL structure if necessary.
+</Aside>
