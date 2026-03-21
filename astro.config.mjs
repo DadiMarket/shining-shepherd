@@ -14,15 +14,20 @@ export default defineConfig({
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
 			sidebar: [
 				{
-					label: 'Guides',
+					label: 'Dadi Initial Rewards',
 					items: [
-						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', slug: 'guides/example' },
+						{ label: 'Introduction', slug: 'scripts/dadi-initial-rewards/introduction' },
+						{ label: 'Installation & SQL', slug: 'scripts/dadi-initial-rewards/installation' },
+						{ label: 'Configuration', slug: 'scripts/dadi-initial-rewards/configuration' },
 					],
 				},
 				{
-					label: 'Reference',
-					autogenerate: { directory: 'reference' },
+					label: 'Dadi Exotic Paints',
+					items: [
+						{ label: 'Introduction', slug: 'scripts/dadi-exotic-paints/introduction' },
+						{ label: 'Installation', slug: 'scripts/dadi-exotic-paints/installation' },
+						{ label: 'Configuration', slug: 'scripts/dadi-exotic-paints/configuration' },
+					],
 				},
 			],
 		}),

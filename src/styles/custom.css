@@ -25,7 +25,7 @@
 	--sl-color-accent: var(--brand-teal);
 	--sl-color-accent-low: #1e3a3f;
 	--sl-color-accent-high: #d8e5e7;
-	
+
 	/* Soft Dark Background */
 	--sl-color-bg: var(--brand-dark);
 	--sl-color-bg-nav: var(--brand-dark);
@@ -47,15 +47,10 @@ h1, h2, h3, h4, h5, h6 {
 .card {
 	border-radius: 1.5rem !important;
 	border: 2px solid rgba(255, 255, 255, 0.1) !important;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-	transition: transform 0.2s ease-in-out;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.card:hover {
-	transform: translateY(-5px);
-}
-
-/* Alternating colors for cards or just general accent */
+/* Alternating colors for cards */
 .card:nth-child(odd) {
 	background-color: var(--brand-teal) !important;
 }
@@ -64,22 +59,23 @@ h1, h2, h3, h4, h5, h6 {
 	background-color: var(--brand-gold) !important;
 }
 
-.card:nth-child(odd) .title,
-.card:nth-child(odd) .description,
-.card:nth-child(odd) .icon {
-	color: white !important;
-}
-
-.card:nth-child(even) .title,
-.card:nth-child(even) .description,
-.card:nth-child(even) .icon {
-	color: white !important;
+/* Core Selectors for Card Content (Title, Body, and SVG Icon) */
+.card .title,
+.card .body,
+.card .title svg {
+	color: #FFFFFF !important;
+	fill: #FFFFFF !important;
 }
 
 .card .title {
 	font-family: var(--sl-font-title) !important;
 	font-size: 1.5rem !important;
 	font-weight: 700 !important;
+}
+
+.card .body {
+	font-size: 1rem !important;
+	line-height: 1.5;
 }
 
 /* Customizing the logo/title in nav */

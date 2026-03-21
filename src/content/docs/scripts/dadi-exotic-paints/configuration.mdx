@@ -1,0 +1,182 @@
+---
+title: Configuration
+description: Explore and customize the configuration settings for the Dadi Exotic Paints script.
+---
+
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+
+# ⚙️ Configuration Guide
+
+Welcome to the configuration guide for the Dadi Exotic Paints script. Below you will find a detailed explanation of each configuration option available in the script.
+
+## Core Configuration
+
+The `config.lua` file allows you to adapt the script to your server's framework and inventory system.
+
+<Tabs>
+  <TabItem label="Config Snippet">
+```lua title="config.lua"
+Dadi = Dadi or {}
+
+Dadi.Framework = 'qb' -- 'esx' or 'qb'
+
+--[[ 
+  'ox' = 'Ox Inventory'
+  'esx' = 'ESX Inventory'
+  'qb' = 'QBCore Inventory'
+  'qs' = 'Quasar Inventory'
+]]--
+Dadi.Inventory = 'esx' 
+
+--[[ 
+  'vehicle' = 'ESX Props Vehicles' 
+  'mods' = 'QBCore Props Vehicles'
+]]--
+Dadi.TablePropsVehicles = 'mods'
+```
+  </TabItem>
+</Tabs>
+
+### Framework & Inventory
+- **Dadi.Framework**: Set this to `'esx'` or `'qb'` (QBCore/Qbox).
+- **Dadi.Inventory**: Choose your inventory system: `'ox'`, `'esx'`, `'qb'`, or `'qs'`.
+- **Dadi.TablePropsVehicles**: Defines how vehicle properties are handled. Use `'vehicle'` for standard ESX or `'mods'` for QBCore-based systems.
+
+---
+
+## Colors Configuration
+
+The `colors.lua` file contains a table defining the vehicle paint colors. It uses key-value pairs where the key is a string identifier and the value is the in-game color ID.
+
+```lua title="colors.lua"
+-- Example entries
+['anod_red'] = 161,
+['anod_wine'] = 162,
+['anod_purple'] = 163,
+-- ... and many more
+```
+
+<Aside type="tip">
+This structure allows easy customization. You can add your own colors or modify existing mapping if you have custom carcols.
+</Aside>
+
+---
+
+# 🩴 Items Setup (Ox Inventory)
+
+If you are using **Ox Inventory**, you need to add the items to your `data/items.lua` or equivalent. Below is an example with 20 different colors. You can continue the sequence based on the `colors.lua` file.
+
+```lua title="ox_inventory/data/items.lua"
+['anod_red'] = {
+    label = 'Anod Red',
+    weight = 1,
+    stack = false,
+    close = true,
+},
+['anod_wine'] = {
+    label = 'Anod Wine',
+    weight = 1,
+    stack = false,
+    close = true,
+},
+['anod_purple'] = {
+    label = 'Anod Purple',
+    weight = 1,
+    stack = false,
+    close = true,
+},
+['anod_blue'] = {
+    label = 'Anod Blue',
+    weight = 1,
+    stack = false,
+    close = true,
+},
+['anod_green'] = {
+    label = 'Anod Green',
+    weight = 1,
+    stack = false,
+    close = true,
+},
+['anod_lime'] = {
+    label = 'Anod Lime',
+    weight = 1,
+    stack = false,
+    close = true,
+},
+['anod_copper'] = {
+    label = 'Anod Copper',
+    weight = 1,
+    stack = false,
+    close = true,
+},
+['anod_bronze'] = {
+    label = 'Anod Bronze',
+    weight = 1,
+    stack = false,
+    close = true,
+},
+['anod_champagne'] = {
+    label = 'Anod Champagne',
+    weight = 1,
+    stack = false,
+    close = true,
+},
+['anod_gold'] = {
+    label = 'Anod Gold',
+    weight = 1,
+    stack = false,
+    close = true,
+},
+['green_blue_flip'] = {
+    label = 'Flip Green Blue',
+    weight = 1,
+    stack = false,
+    close = true,
+},
+['green_red_flip'] = {
+    label = 'Flip Green Red',
+    weight = 1,
+    stack = false,
+    close = true,
+},
+['green_brow_flip'] = {
+    label = 'Flip Green Brow',
+    weight = 1,
+    stack = false,
+    close = true,
+},
+['green_turq_flip'] = {
+    label = 'Flip Green Turq',
+    weight = 1,
+    stack = false,
+    close = true,
+},
+['green_purp_flip'] = {
+    label = 'Flip Green Purp',
+    weight = 1,
+    stack = false,
+    close = true,
+},
+['turq_red_flip'] = {
+    label = 'Flip Turq Red',
+    weight = 1,
+    stack = false,
+    close = true,
+},
+['turq_purp_flip'] = {
+    label = 'Flip Turq Purp',
+    weight = 1,
+    stack = false,
+    close = true,
+},
+['cyan_purp_flip'] = {
+    label = 'Flip Cyan Purp',
+    weight = 1,
+    stack = false,
+    close = true,
+},
+```
+
+<Aside type="note">
+Make sure the item names match the keys in your `colors.lua` file.
+</Aside>

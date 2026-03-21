@@ -1,0 +1,56 @@
+---
+title: Installation and SQL
+description: How to install Dadi Initial Rewards on your FiveM server.
+---
+
+import { Aside, Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+
+# ❓ Installation
+
+Welcome to the installation guide for Dadi Initial Rewards.
+
+<Aside type="caution">
+You must have **ESX version 1.9** or newer for the script to work. Remember to clear your cache after installation.
+</Aside>
+
+## Dependencies
+This script is **free of dependencies**.
+
+## How to Install the Script
+
+<Steps>
+1.  **Download the script** from your FiveM keymaster. You will receive a .zip file named `dadi-reward.pack.zip`.
+2.  **Open** the compressed file.
+3.  **Create a folder** named `[dadi-market]` (if you don't have it yet) in your server's resources directory.
+4.  **Copy** the contents into the newly created folder.
+5.  **Extract here**. Ensure that the folder `dadi_rewards` is generated.
+6.  **Locate the [SQL] folder** inside the package. This will be used in the next step.
+7.  **Start your FiveM server** and ensure the script is loaded in your `server.cfg`.
+</Steps>
+
+---
+
+# 🗃️ SQL Installation
+
+To configure the script database, follow these steps:
+
+<Steps>
+1.  **Extract the [SQL] folder** from the package.
+2.  **Open MySQL Management System** (like HeidiSQL or phpMyAdmin) and access your database.
+3.  **Prepare the environment**: Ensure you are using the correct database. For instance:
+    ```sql
+    USE `esxlegacy_123`;
+    ```
+4.  **Execute the SQL**: Copy the following code and run it in your database:
+    ```sql
+    CREATE TABLE IF NOT EXISTS `dadi_rewards` ( 
+        `identifier` varchar(69) NOT NULL, 
+        `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() 
+    ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = latin1;
+    ```
+5.  **Verify**: Check that the table `dadi_rewards` has been created correctly.
+</Steps>
+
+<Aside type="note">
+The `dadi_rewards` table stores the player's identifier and the date they claimed their rewards to prevent duplicate claims.
+</Aside>

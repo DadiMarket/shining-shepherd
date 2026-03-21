@@ -1,0 +1,214 @@
+---
+title: Configuration
+description: Explore and customize the configuration settings for the Dadi Rewards script.
+---
+
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+
+# ⚙️ Configuration Guide
+
+Welcome to the configuration guide for Dadi Rewards script. Below you will find a detailed explanation of each configuration option available in the script, allowing you to customize the script to better fit your server's needs.
+
+Below you will find the **configuration parameters** for both the `ESX` and `QB / QBOX` versions. You can switch between the tabs below to view the settings that correspond to your server framework. 
+
+<Aside type="caution">
+  Please ensure you are viewing the **correct tab** for your framework. Incorrect configuration may lead to script errors or framework incompatibility.
+</Aside>
+
+Use this file to tweak markers, vehicle spawn points, cash bonuses, and the notification system to perfectly match your server's style.
+
+<Tabs>
+  <TabItem label="QB / QBOX">
+```lua title="shared.lua"
+-- ██████╗░░█████╗░██████╗░██╗  ░█████╗░░█████╗░███╗░░██╗███████╗██╗░██████╗░
+-- ██╔══██╗██╔══██╗██╔══██╗██║  ██╔══██╗██╔══██╗████╗░██║██╔════╝██║██╔════╝░
+-- ██║░░██║███████║██║░░██║██║  ██║░░╚═╝██║░░██║██╔██╗██║█████╗░░██║██║░░██╗░
+-- ██║░░██║██╔══██║██║░░██║██║  ██║░░██╗██║░░██║██║╚████║██╔══╝░░██║██║░░╚██╗
+-- ██████╔╝██║░░██║██████╔╝██║  ╚█████╔╝╚█████╔╝██║░╚███║██║░░░░░██║╚██████╔╝
+-- ╚═════╝░╚═╝░░╚═╝╚═════╝░╚═╝  ░╚════╝░░╚════╝░╚═╝░░╚══╝╚═╝░░░░░╚═╝░╚═════╝░
+
+Dadi = Dadi or {}
+
+Dadi.Marker = {
+	type = 21, -- Marker type
+	scale = {x = 0.5, y = 0.5, z = 0.5}, -- Scale of the marker
+	color = {r = 94, g = 12, b = 99, a = 180}, -- Color of the marker
+	rotation = {x = 0.0, y = 0.0, z = 0.0}, -- Rotation of the marker
+	distance = 2.0 -- Distance to show the marker
+}
+Dadi.nameGarage = "pillboxgarage" -- Set default to save the vehicle in the garage
+Dadi.Coord = vec3(-260.51,-973.94,31.22) -- coords of the marker
+Dadi.SpawnVehicle = vec3(-264.7199, -994.1208, 30.5037) -- coords of the vehicle spawned
+Dadi.VehicleHeading = 246.91 -- heading of the vehicle spawned
+
+-- HERE YOU PLACE THE LIST OF CARS THAT YOU COULD GET (REMEMBER THAT FROM ALL OF THEM YOU WILL ONLY GET 1 AT RANDOM)
+Dadi.ModelName = { 
+	"faggio",
+	"blista",
+	"panto"
+}
+
+-- FOR LOGS
+Dadi.ServerName = "DADI" -- Name of your server
+
+-- SETUP OF THE INITIAL PLAYER BONUS
+Dadi.EnableCashBonus = true
+Dadi.AmountCashBonus = 1000
+
+Dadi.EnableBankBonus = false
+Dadi.AmountBankBonus = 25000
+
+Dadi.EnableBlackMoneyBonus = false -- In this case QBCore is crypto and not black money
+Dadi.AmuontBlackMoneyBonus = 30000
+
+Dadi.EnableCoinsCustom = false
+Dadi.CustomCoinsName = "dadicoins"
+Dadi.AmountCoinsCustom = 20
+
+--VEHICLE PLATE INFORMATION
+Dadi.PlateLetters  = 3
+Dadi.PlateNumbers  = 5
+Dadi.PlateUseSpace = false
+
+-- VEHICLE SPAWN INFORMATION
+Dadi.spawnIntoVehicle = false -- If true, the player will spawn inside the vehicle
+Dadi.VehicleEngineOn = false -- If true, the vehicle will spawn with the engine on
+
+-- LANGUAGE CONFIGURATION
+Dadi.Lang = {
+	['BonusClaimed'] = "You have already claimed your gift, welcome to "..Dadi.ServerName.."!",
+	['MoneyAdded'] = "You received $"..Dadi.AmountCashBonus.." of clean money as a welcome bonus",
+	['BankAdded'] = "You received $" .. Dadi.AmountBankBonus .. " in the bank as a welcome bonus",
+	['BlackAdded'] = "You received $" .. Dadi.AmuontBlackMoneyBonus .. " of dirty money as a welcome bonus",
+	['CoinsAdded'] = "You received $" .. Dadi.AmountCoinsCustom .. " of vip coins as a welcome bonus",
+	['VehicleAdded'] = "You have received your car, pick it up at the nearest garage!",
+	['Label'] = "✨WELCOME TO ~*~"..Dadi.ServerName.."✨~n~Claim your welcome bonus here ~w~~n~~y~[E] GET",
+}
+
+Dadi.UseCustomNotify = false -- Use a custom notification script, must complete event below.
+RegisterNetEvent('dadi_rewards:CustomNotify')
+AddEventHandler('dadi_rewards:CustomNotify', function(message, type)
+	exports['Notify']:Alert("Dadis Rewards", message, 5000, type)
+end)
+
+Dadi.LangType = { -- Only change if Dadi.UseCustomNotify is true (don't touch if you don't know)
+	['error'] 	= "error",
+	['success'] = "success",
+	['info'] 	= "info"
+}
+
+-- Put your vehicle keys system here, if you don't want to use it, just delete the event below
+function keySystem(vehicle)
+	local plate = GetVehicleNumberPlateText(vehicle)
+	local netId = NetworkGetNetworkIdFromEntity(vehicle)
+	TriggerEvent('vehiclekeys:client:SetOwner', plate) -- USE THIS FOR qb_vehiclekeys
+	-- TriggerServerEvent('dadi_rewards:giveKeys', plate, netId) -- USE THIS FOR qbx_vehiclekeys
+end
+
+-- Put your vehicle fuel system here, if you don't want to use it, just delete the function below
+function fuelSystem(vehicle)
+	if GetResourceState('ox_fuel') == 'started' then
+		Entity(vehicle).state.fuel = 100
+	elseif GetResourceState('qb-fuel') == 'started' then
+		exports['qb-fuel']:SetFuel(vehicle, 100.0)
+	elseif GetResourceState('LegacyFuel') == 'started' then
+		exports['LegacyFuel']:SetFuel(vehicle, 100.0)
+	else 
+		SetVehicleFuelLevel(vehicle, 100.0)
+	end
+end
+```
+  </TabItem>
+
+  <TabItem label="ESX">
+```lua title="shared.lua"
+-- ██████╗░░█████╗░██████╗░██╗  ░█████╗░░█████╗░███╗░░██╗███████╗██╗░██████╗░
+-- ██╔══██╗██╔══██╗██╔══██╗██║  ██╔══██╗██╔══██╗████╗░██║██╔════╝██║██╔════╝░
+-- ██║░░██║███████║██║░░██║██║  ██║░░╚═╝██║░░██║██╔██╗██║█████╗░░██║██║░░██╗░
+-- ██║░░██║██╔══██║██║░░██║██║  ██║░░██╗██║░░██║██║╚████║██╔══╝░░██║██║░░╚██╗
+-- ██████╔╝██║░░██║██████╔╝██║  ╚█████╔╝╚█████╔╝██║░╚███║██║░░░░░██║╚██████╔╝
+-- ╚═════╝░╚═╝░░╚═╝╚═════╝░╚═╝  ░╚════╝░░╚════╝░╚═╝░░╚══╝╚═╝░░░░░╚═╝░╚═════╝░
+
+Dadi = Dadi or {}
+
+Dadi.Marker = {
+	type = 21, -- Marker type
+	scale = {x = 0.5, y = 0.5, z = 0.5}, -- Scale of the marker
+	color = {r = 94, g = 12, b = 99, a = 180}, -- Color of the marker
+	rotation = {x = 0.0, y = 0.0, z = 0.0}, -- Rotation of the marker
+	distance = 2.0 -- Distance to show the marker
+}
+Dadi.Coord = vec3(-260.51,-973.94,31.22) -- coords of the marker
+Dadi.SpawnVehicle = vec3(-264.7199, -994.1208, 30.5037) -- coords of the vehicle spawned
+Dadi.VehicleHeading = 244.79 -- heading of the vehicle spawned
+
+-- HERE YOU PLACE THE LIST OF CARS THAT YOU COULD GET (REMEMBER THAT FROM ALL OF THEM YOU WILL ONLY GET 1 AT RANDOM)
+Dadi.ModelName = { 
+	"faggio",
+	"blista",
+	"panto"
+}
+
+-- FOR LOGS
+Dadi.ServerName = "DADI"  
+
+-- SETUP OF THE INITIAL PLAYER BONUS
+Dadi.EnableCashBonus = false
+Dadi.AmountCashBonus = 1000
+
+Dadi.EnableBankBonus = false
+Dadi.AmountBankBonus = 250000
+
+Dadi.EnableBlackMoneyBonus = false
+Dadi.AmuontBlackMoneyBonus = 30000
+
+Dadi.EnableCoinsCustom = false
+Dadi.CustomCoinsName = "dadicoins"
+Dadi.AmountCoinsCustom = 20
+
+--VEHICLE PLATE INFORMATION
+Dadi.PlateLetters  = 3
+Dadi.PlateNumbers  = 5
+Dadi.PlateUseSpace = false
+
+-- VEHICLE SPAWN INFORMATION
+Dadi.spawnIntoVehicle = false -- If true, the player will spawn into the vehicle
+Dadi.fuelLevelSet = 100 -- Fuel level of the vehicle spawned
+Dadi.TypeofVehicle = "car" -- car, bike, truck, boat, plane, helicopter
+
+-- LANGUAGE CONFIGURATION
+Dadi.Lang = {
+	['BonusClaimed'] = "You have already claimed your gift, welcome to "..Dadi.ServerName.."!",
+	['MoneyAdded'] = "You received $"..Dadi.AmountCashBonus.." of clean money as a welcome bonus",
+	['BankAdded'] = "You received $" .. Dadi.AmountBankBonus .. " in the bank as a welcome bonus",
+	['BlackAdded'] = "You received $" .. Dadi.AmuontBlackMoneyBonus .. " of dirty money as a welcome bonus",
+	['CoinsAdded'] = "You received $" .. Dadi.AmountCoinsCustom .. " of vip coins as a welcome bonus",
+	['VehicleAdded'] = "You have received your car, pick it up at the nearest garage!",
+	['Label'] = "✨ WELCOME TO ~*~"..Dadi.ServerName.." ✨<br>Claim your welcome bonus here ~w~<br>~y~[E] GET",
+}
+
+Dadi.UseCustomNotify = false -- Use a custom notification script, must complete event below.
+RegisterNetEvent('dadi_rewards:CustomNotify')
+AddEventHandler('dadi_rewards:CustomNotify', function(message, type)
+	exports['Notify']:Alert("Dadis Rewards", message, 5000, type)
+end)
+
+Dadi.LangType = { -- Only change if Dadi.UseCustomNotify is true (don't touch if you don't know)
+	['error'] 	= "error",
+	['success'] = "success",
+	['info'] 	= "info"
+}
+
+-- Put your vehicle keys system here, if you don't want to use it, just delete the event below
+function keySystem(vehicle)
+	local plate = GetVehicleNumberPlateText(vehicle)
+	TriggerClientEvent('vehiclekeys:client:SetOwner', plate)
+end
+
+-- Put your vehicle fuel system here, if you don't want to use it, just delete the function below
+function fuelSystem(vehicle)
+	return SetVehicleFuelLevel(vehicle, 100)
+end
+```
+  </TabItem>
+</Tabs>
