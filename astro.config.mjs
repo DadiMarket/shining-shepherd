@@ -6,7 +6,7 @@ export default defineConfig({
   site: 'https://docs.dadimarket.com',
   adapter: cloudflare({
     mode: 'directory',
-    runtime: { mode: 'compatibility', compatibilityDate: '2024-04-03' }, // Fecha estable
+    runtime: { mode: 'compatibility', compatibilityDate: '2026-02-24' }, // Fecha estable
   }),
   integrations: [
     starlight({
