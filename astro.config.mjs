@@ -4,10 +4,9 @@ import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
   site: 'https://docs.dadimarket.com',
-  output: 'static', // Cambiamos a static para evitar problemas con dependencias de servidor si no las necesitas
   adapter: cloudflare({
     mode: 'directory',
-    runtime: { mode: 'compatibility', compatibilityDate: '2026-03-21' }, // Fecha estable
+    runtime: { mode: 'compatibility', compatibilityDate: '2024-04-03' }, // Fecha estable
   }),
   integrations: [
     starlight({
