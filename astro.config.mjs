@@ -7,7 +7,7 @@ export default defineConfig({
   output: 'static', // Cambiamos a static para evitar problemas con dependencias de servidor si no las necesitas
   adapter: cloudflare({
     mode: 'directory',
-    runtime: { mode: 'compatibility', compatibilityDate: '2024-04-03' }, // Fecha estable
+    runtime: { mode: 'compatibility', compatibilityDate: '2026-03-21' }, // Fecha estable
   }),
   integrations: [
     starlight({
